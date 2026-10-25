@@ -1,0 +1,53 @@
+/* types_and_pointers.c — типи даних та вказівники */
+#include <stdio.h>
+#include <stdint.h>
+#include <limits.h>
+#include <float.h>
+
+int main(void)
+{
+    printf("=== Розміри базових типів ===\n");
+    printf("char:        %zu байт\n", sizeof(char));
+    printf("short:       %zu байт\n", sizeof(short));
+    printf("int:         %zu байт\n", sizeof(int));
+    printf("long:        %zu байт\n", sizeof(long));
+    printf("long long:   %zu байт\n", sizeof(long long));
+    printf("float:       %zu байт\n", sizeof(float));
+    printf("double:      %zu байт\n", sizeof(double));
+    printf("size_t:      %zu байт\n", sizeof(size_t));
+    printf("int32_t:     %zu байт\n", sizeof(int32_t));
+    printf("uint64_t:    %zu байт\n", sizeof(uint64_t));
+    printf("void *:      %zu байт\n", sizeof(void *));
+
+    printf("\n=== Діапазони значень ===\n");
+    printf("char:      від %d до %d\n", CHAR_MIN, CHAR_MAX);
+    printf("int:       від %d до %d\n", INT_MIN, INT_MAX);
+    printf("long long: від %lld до %lld\n", LLONG_MIN, LLONG_MAX);
+
+printf("\n=== Вказівники ===\n");
+    int x = 42;
+    int *ptr = &x;
+
+    printf("Значення x:      %d\n", x);
+    printf("Адреса x (&x):   %p\n", (void *)&x);
+    printf("Значення ptr:    %p\n", (void *)ptr);
+    printf("*ptr (розіменув.):%d\n", *ptr);
+
+    *ptr = 100;
+    printf("Після *ptr = 100, нове значення x: %d\n", x);
+
+    printf("\n=== Арифметика вказівників ===\n");
+    int arr[] = {10, 20, 30, 40, 50};
+    int *p = arr;
+
+    for (int i = 0; i < 5; i++) {
+        printf("arr[%d] = %d, адреса = %p, *(p+%d) = %d\n",
+               i, arr[i], (void *)(p + i), i, *(p + i));
+    }
+
+    ptrdiff_t diff = (p + 4) - p;
+    size_t byte_diff = (char *)(p + 4) - (char *)p;
+    printf("\nРізниця (p+4) - p = %td елементів, %zu байтів\n", diff, byte_diff);
+
+    return 0;
+}
